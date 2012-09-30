@@ -127,18 +127,28 @@ extends Thread
     */
     public void start()
     {
-        /* Starting the TargetDataLine. It tells the line that
-           we now want to read data from it. If this method
-           isn't called, we won't
-           be able to read data from the line at all.
-        */
-        m_line.start();
+        
+			try {
+			if(!m_line.isOpen())
+				m_line.open();
+			
+			/* Starting the TargetDataLine. It tells the line that
+	           we now want to read data from it. If this method
+	           isn't called, we won't
+	           be able to read data from the line at all.
+	        */
+				m_line.start();
 
-        /* Starting the thread. This call results in the
-           method 'run()' (see below) being called. There, the
-           data is actually read from the line.
-        */
-        super.start();
+	        /* Starting the thread. This call results in the
+	           method 'run()' (see below) being called. There, the
+	           data is actually read from the line.
+	        */
+				super.start();		
+			
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
 
 
