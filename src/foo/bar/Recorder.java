@@ -18,7 +18,12 @@ public class Recorder {
 		provider.register(KeyStroke.getKeyStroke(DEFAULT_KEY),new HotKeyListener(){
 			@Override
 			public void onHotKey(HotKey arg0) {
-				
+				System.out.println("omg hotkey");
+				if(recorder.isAlive())
+					recorder.stopRecording();
+				else
+					recorder.start();
+					
 			}
 
 		});
