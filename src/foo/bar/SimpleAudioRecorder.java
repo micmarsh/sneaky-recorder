@@ -143,7 +143,8 @@ extends Thread
 	           method 'run()' (see below) being called. There, the
 	           data is actually read from the line.
 	        */
-				super.start();		
+				if(!this.isAlive())
+					super.start();		
 			
 			} catch (LineUnavailableException e) {
 				// TODO Auto-generated catch block
@@ -195,15 +196,24 @@ extends Thread
     {
             try
             {
-                AudioSystem.write(
-                    m_audioInputStream,
-                    m_targetType,
-                    m_outputFile);
+            	
+            	while(true){
+            		if(m_line.isOpen())
+		                AudioSystem.write(
+		                    m_audioInputStream,
+		                    m_targetType,
+		                    m_outputFile);
+	                Thread.sleep(500);
+            	}
+                
             }
             catch (IOException e)
             {
                 e.printStackTrace();
-            }
+            } catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
 
 
